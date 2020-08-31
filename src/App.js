@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
 
+import { Container } from "semantic-ui-react";
+import Articles from "./Pages/Articles";
+import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp";
+import ProductDetails from "./Pages/PrductDetails";
+import Cart from "./Pages/Cart";
+import NavBar from "./Components/NavBar";
+import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 function App() {
+  useEffect(() => {
+    // LogIn();
+    // updateUserProfile();
+    // getUserProfile();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar />
+      <Container>
+        <Switch>
+          <Route exact path="/articles" component={Articles} />
+          <Route exact path="/:id/details" component={ProductDetails} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/cart" component={Cart} />
+        </Switch>
+      </Container>
+    </>
   );
 }
 
-export default App;
+let mapstatetoprops = () => {
+  return {};
+};
+
+export default connect(mapstatetoprops, {})(App);

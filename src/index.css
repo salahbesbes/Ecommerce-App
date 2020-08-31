@@ -1,13 +1,61 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.h-all{
+  height: 50vh;
+}
+.h-350 {
+  height: 350px;
+}
+.h-200 {
+  margin-top: 20px !important;
+}
+.m-auto {
+  object-fit: contain;
+  margin: auto !important;
+}
+.y-center {
+  display: flex !important;
+  align-items: center !important;
+}
+.x-center {
+  display: flex !important;
+  justify-content: center !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.ui.menu .item .floating.label {
+  left: 80% !important;
+  width: 30px !important;
+}
+.w-200 {
+  width: 100px;
+}
+
+.seg-menu {
+  margin-bottom: 50px !important;
+}
+.ui.card {
+  margin: 10px auto !important;
+}
+.w-300 {
+  width: 50vw !important;
+  margin: 0;
+}
+.ui.menu .item {
+  padding-right: 0 !important ;
+}
+.ui.menu {
+  display: flex;
+  align-items: center;
+}
+.ui.menu:not(.verticle) .right.menu {
+  margin-right: 50px !important;
+  /* margin: 0 50px !important; */
+}
+.ui.menu:not(.verticle) .left.menu {
+  margin-right: 30px !important;
+}
+
+a {
+  text-decoration: none !important  ;
+}
+.mb-20 {
+  margin-bottom: 20px;
 }
