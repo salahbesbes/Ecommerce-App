@@ -45,7 +45,9 @@
     ]
   },
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "faker": "^5.1.0"
+  },
   "author": "salah_besbes",
   "license": "ISC",
   "description": ""

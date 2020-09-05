@@ -14,6 +14,7 @@ import {
   sign_up,
   log_out,
   isLoading,
+  filter_by_type,
 } from "../R-Const/TypeofAction";
 
 const initState = {
@@ -24,6 +25,8 @@ const initState = {
   cart: [],
   someError: [],
   isLoading: false,
+  userStillConnected: null,
+  productsFiltred: [],
 };
 
 /*
@@ -72,9 +75,9 @@ const mainReducer = (state = initState, action) => {
     case add_product_to_Cart:
       let id = uuid();
       let message = "item was found in the cart";
-      let findProduct = state.products.find(el => el.id === payload); // --> we found the product from the products list and we ge it
-      let cartProduct = { ...findProduct.data(), uid: payload }; // we add to it the id cause we need it to identify it
-      return state.cart.some(elem => elem.uid === cartProduct.uid) // if it is already exists we send some error message  ( some return true or false exist or not )
+      let findProduct = state.products.find(el => el.uid === payload); // --> we found the product from the products list and we ge it
+      // let cartProduct = { ...findProduct.data(), uid: payload }; // we add to it the id cause we need it to identify it
+      return state.cart.some(elem => elem.uid === findProduct.uid) // if it is already exists we send some error message  ( some return true or false exist or not )
         ? {
             ...state,
             someError: [
@@ -82,18 +85,19 @@ const mainReducer = (state = initState, action) => {
               { message, id, key: id, type: "articles" },
             ],
           }
-        : { ...state, cart: [cartProduct, ...state.cart] };
+        : { ...state, cart: [findProduct, ...state.cart] };
 
     case delete_product_from_cart:
       let newCart = state.cart.filter(el => el.uid !== payload);
       return { ...state, cart: newCart };
 
     case Cart_quantity:
+      let newCartArray = state.cart.map(el =>
+        el.uid === payload.uid ? { ...el, CartQte: payload.CartQte } : el
+      );
       return {
         ...state,
-        cart: state.cart.map(el =>
-          el.uid === payload.uid ? { ...el, CartQte: payload.CartQte } : el
-        ),
+        cart: newCartArray,
       };
     case client_check_out:
       return state;
@@ -107,6 +111,21 @@ const mainReducer = (state = initState, action) => {
       };
     case Clear_Errors:
       return { ...state, someError: [] };
+    case filter_by_type:
+      let newarray = state.products.filter(el => el.type === payload); // payload is string
+      let propertiesNameExist = state.productsFiltred.some(
+        el => Object.getOwnPropertyNames(el)[0] === payload
+      );
+
+      return !propertiesNameExist
+        ? {
+            ...state,
+            productsFiltred: [
+              ...state.productsFiltred,
+              { [payload]: newarray },
+            ],
+          }
+        : state;
 
     default:
       return state;

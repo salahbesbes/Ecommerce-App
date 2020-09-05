@@ -85,6 +85,10 @@ let productRules = {
     identifier: "DbQte",
     rules: [
       {
+        type: "number",
+        prompt: "Please enter a Number",
+      },
+      {
         type: "empty",
         prompt: "Please enter a DbQte",
       },

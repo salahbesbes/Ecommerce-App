@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { Set_Error, remove_Alert, Clear_Errors } from "../R-Const/TypeofAction";
 
-export const SetAlert = (message, type, time = 5000) => dispatch => {
+export const SetAlert = (message, type, time = 8000) => dispatch => {
   const id = uuid();
 
   dispatch({

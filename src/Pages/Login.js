@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Segment, Form, Button, Grid } from "semantic-ui-react";
+import { Segment, Form, Button, Grid, Message } from "semantic-ui-react";
 import { validationRules } from "../Utils/FormValidation";
 import { LogIn } from "../R-Action/Auth-Action";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 let $ = window["$"]; // we are using jquery from index.html
 
-const Login = ({ LogIn, user }) => {
+const Login = ({ LogIn, user, errors, isLoading }) => {
+
   const [formData, setFormData] = useState(null);
 
   const handleChange = (e, { name, value }) =>
@@ -15,14 +16,13 @@ const Login = ({ LogIn, user }) => {
   const handleSubmit = formData => {
     $(".LoginForm").form("is valid") && LogIn(formData);
   };
-
   useEffect(() => {
     $(".LoginForm").form({
       fields: validationRules,
       inline: true,
       on: "blur",
     });
-  });
+  }, [formData]);
   if (user) return <Redirect to="/articles" />;
   return (
     <Grid>
@@ -30,10 +30,12 @@ const Login = ({ LogIn, user }) => {
         <Grid.Column width="7">
           <Segment raised>
             <Form
+              error
               onSubmit={() => handleSubmit(formData)}
               size="large"
               widths="equal"
               className="LoginForm"
+
             >
               <Form.Field>
                 <Form.Input
@@ -53,8 +55,16 @@ const Login = ({ LogIn, user }) => {
                 />
               </Form.Field>
 
-              <Button color="orange">Submit</Button>
+              <Button loading={isLoading} color="orange">Submit</Button>
             </Form>
+            {errors.length > 0 && errors[0].type === "form" && (
+              <Message error>
+                <Message.Header>Please Check your credential</Message.Header>
+                {errors.map((el, i) => (
+                  <Message.List key={i}> {el.message} </Message.List>
+                ))}
+              </Message>
+            )}
           </Segment>
         </Grid.Column>
       </Grid.Row>
@@ -63,7 +73,9 @@ const Login = ({ LogIn, user }) => {
 };
 let mapstatetoprops = state => {
   return {
+    errors: state.someError,
     user: state.user,
+    isLoading: state.isLoading,
   };
 };
 

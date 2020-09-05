@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.css";
 
 import { Container } from "semantic-ui-react";
@@ -10,19 +10,17 @@ import Cart from "./Pages/Cart";
 import NavBar from "./Components/NavBar";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-function App() {
-  useEffect(() => {
-    // LogIn();
-    // updateUserProfile();
-    // getUserProfile();
-  }, []);
+import LoadingHoc from "./HOC/LoadingHoc";
 
+function App() {
+  const ArticlesWithLoading = LoadingHoc(Articles);
   return (
     <>
       <NavBar />
       <Container>
         <Switch>
-          <Route exact path="/articles" component={Articles} />
+          <Route exact path="/articles" component={ArticlesWithLoading} />
+          {/* <Route exact path="/articles" component={Articles} /> */}
           <Route exact path="/:id/details" component={ProductDetails} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />

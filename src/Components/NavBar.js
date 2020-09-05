@@ -1,22 +1,10 @@
 import React from "react";
-import {
-  Segment,
-  Menu,
-  Input,
-  Icon,
-  Label,
-  Select,
-  Button,
-} from "semantic-ui-react";
+import { Segment, Menu, Icon, Label } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { LogOut } from "../R-Action/Auth-Action";
-const NavBar = ({ CartProducts, LogOut, user }) => {
-  const options = [
-    { key: "all", text: "All", value: "all" },
-    { key: "articles", text: "Articles", value: "articles" },
-    { key: "products", text: "Products", value: "products" },
-  ];
+import SearchInput from "./Search";
+const NavBar = ({ CartProducts, LogOut, user, products }) => {
   return (
     <div>
       <Segment className="seg-menu" inverted textAlign="center">
@@ -30,13 +18,14 @@ const NavBar = ({ CartProducts, LogOut, user }) => {
             </Menu.Item>
           </Menu.Menu>
           <div className="w-300">
-            <Input type="text" placeholder="Search..." action fluid>
+            {/* <Input type="text" placeholder="Search..." action fluid>
               <input />
               <Select compact options={options} defaultValue="articles" />
               <Button color="blue" type="submit">
                 Search
               </Button>
-            </Input>
+            </Input> */}
+            <SearchInput products={products} />
           </div>
           <Menu.Menu position="right">
             {!user ? (
@@ -90,6 +79,7 @@ let mapstatetoprops = state => {
   return {
     CartProducts: state.cart,
     user: state.user,
+    products: state.products,
   };
 };
 

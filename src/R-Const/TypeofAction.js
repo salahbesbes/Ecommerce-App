@@ -7,7 +7,7 @@ export const update_user_profile = "update_user_profile";
 
 export const get_all_products = "get_all_products";
 export const get_product = "get_product";
-
+export const filter_by_type = "filter_by_type";
 export const add_product = "add_product";
 
 export const add_product_to_Cart = "add_product_to_Cart";

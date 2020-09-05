@@ -1,4 +1,4 @@
-.h-all{
+.h-all {
   height: 50vh;
 }
 .h-350 {
@@ -58,4 +58,8 @@ a {
 }
 .mb-20 {
   margin-bottom: 20px;
+}
+
+.ui.search .prompt {
+  width: 40vw !important;
 }

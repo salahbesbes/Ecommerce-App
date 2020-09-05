@@ -21,6 +21,23 @@ const SignUp = ({ Signup, errors }) => {
       on: "blur",
     });
   }, [formData]);
+
+  const renderMessageError = () => {
+    let errorsIsempty = errors.length === 0; // --> false/true
+    let errorTypeIsForm = errors[0]?.type === "form"; // --> false/true
+
+    if (!errorsIsempty && errorTypeIsForm) {
+      return (
+        <Message error>
+          <Message.Header>Please Check your credential</Message.Header>
+          {errors.map((el, i) => (
+            
+            <Message.List key={i}> {el.message} </Message.List>
+          ))}
+        </Message>
+      );
+    }
+  };
   return (
     <Grid>
       <Grid.Row centered>
@@ -62,14 +79,7 @@ const SignUp = ({ Signup, errors }) => {
 
               <Button color="orange">Submit</Button>
             </Form>
-            {errors.length > 0 && errors[0].type === "form" && (
-              <Message error>
-                <Message.Header>Please Check your credential</Message.Header>
-                {errors.map((el, i) => (
-                  <Message.List key={i}> {el.message} </Message.List>
-                ))}
-              </Message>
-            )}
+            {renderMessageError()}
           </Segment>
         </Grid.Column>
       </Grid.Row>

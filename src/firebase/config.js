@@ -2,9 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
 import "firebase/auth";
-
-
-
+import "firebase/functions";
 let firebaseConfig = {
   apiKey: "AIzaSyCjRapHo4D6PAPgEzU6qW32nGL5JnfRUTg",
   authDomain: "e-commerce-web-app-2f4fa.firebaseapp.com",
@@ -24,11 +22,13 @@ const storageApp = firebase.storage();
 const db = firebase.firestore();
 // initialize authentification
 const auth = firebase.auth();
+// initialize functions
+const Fb_functons = firebase.functions();
+
 // provide the google authentification
 const provider = new firebase.auth.GoogleAuthProvider();
 // create an auto timestam extention
 const firebaseTimestamp = firebase.firestore.FieldValue.serverTimestamp();
 
-
-export { auth, provider, firebaseTimestamp, storageApp };
+export { auth, provider, firebaseTimestamp, storageApp, Fb_functons };
 export default db;

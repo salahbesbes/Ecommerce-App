@@ -7,9 +7,9 @@
 /.pnp
 .pnp.js
 /semantic
+/public/images
 # testing
 /coverage
-
 # production
 /build
 

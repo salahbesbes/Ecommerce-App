@@ -13,13 +13,14 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { AddtoCart } from "../R-Action/Cart-Action";
 
-const ProductCard = ({ product, id, AddtoCart }) => {
+const ProductCard = ({ product, AddtoCart }) => {
   const {
     title = "notitle",
     price = 0,
     rate = 0,
     description = "no description",
     imgUrl = "default",
+    uid,
   } = product;
   return (
     <>
@@ -32,7 +33,7 @@ const ProductCard = ({ product, id, AddtoCart }) => {
             <Grid>
               <Grid.Row>
                 <Grid.Column>
-                  <Link to={`/${id}/details`}>
+                  <Link to={`/${uid}/details`}>
                     <Card.Header as="h3">{title}</Card.Header>
                   </Link>
                 </Grid.Column>
@@ -66,7 +67,7 @@ const ProductCard = ({ product, id, AddtoCart }) => {
           </Label>
         </Card.Content>
         <Card.Content>
-          <Button onClick={() => AddtoCart(id)} fluid color="google plus">
+          <Button onClick={() => AddtoCart(uid)} fluid color="google plus">
             Add to Cart
           </Button>
         </Card.Content>

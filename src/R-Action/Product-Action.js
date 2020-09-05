@@ -3,6 +3,7 @@ import {
   get_all_products,
   get_product,
   add_product,
+  filter_by_type,
   isLoading,
 } from "../R-Const/TypeofAction";
 
@@ -34,9 +35,11 @@ export const GetAllProducts = () => async dispatch => {
 
 export const getOneproduct = id => async dispatch => {
   try {
+    dispatch({ type: isLoading });
     let response = await db.collection("products").doc(id).get();
     let product = response.data();
     dispatch({ type: get_product, payload: product });
+    dispatch({ type: isLoading });
     console.log("we get One products");
   } catch (error) {
     console.log("error", error);
@@ -45,27 +48,32 @@ export const getOneproduct = id => async dispatch => {
 
 export const AddProduct = formData => dispatch => {
   // this opject precvent the app from crashing when ever one of the properties is null
-  const {
-    title = "notitle",
-    price = 0,
-    CartQte = 1,
-    rate = 0,
-    description = "no description",
-    imgUrl = "default",
-  } = formData;
+  const { price = 0, DbQte = 10 } = formData;
   let ProductRef = db.collection("products");
   ProductRef.add({
-    title,
+    ...formData,
     price: +price, // --> number not a text
-    rate,
-    CartQte: +CartQte,
-    DbQte: +CartQte,
-    description,
-    imgUrl,
+
+    DbQte: +DbQte,
+
     createdAt: firebaseTimestamp,
   });
 
   dispatch({ type: add_product });
   dispatch(GetAllProducts());
   console.log("We add the article");
+};
+
+export const FiltredBytype = type => async dispatch => {
+  try {
+    // dispatch({ type: isLoading });
+    // let ProductRef = db.collection("products");
+    // let res = await ProductRef.where("type", "==", type).get();
+    // let payload = res.docs.map(el => ({ ...el.data(), uid: el.id }));
+
+    // dispatch({ type: isLoading });
+    dispatch({ type: filter_by_type, payload: type });
+  } catch (error) {
+    console.log("error", error);
+  }
 };
